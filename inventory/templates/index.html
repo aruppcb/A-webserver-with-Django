@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+  <div class="add_buttons">
+
+    <div class="button-group">
+      <a href="{% url 'display_HSC' %}" class="btn btn-primary btn-md btn-trim" role="button"> HSC</a>
+      <a href="{% url 'add_HSC' %}" class="btn btn-warning btn-sm btn-pad" role="button"> +</a>
+
+      <a href="{% url 'display_PPC' %}" class="btn btn-primary btn-md btn-trim" role="button"> PPC</a>
+      <a href="{% url 'add_PPC' %}" class="btn btn-warning btn-sm btn-pad" role="button"> +</a>
+
+      <a href="{% url 'display_Bidopt' %}" class="btn btn-primary btn-md btn-trim" role="button"> Bid Optimization</a>
+      <a href="{% url 'add_Bidopt' %}" class="btn btn-warning btn-sm btn-pad" role="button"> +</a>
+
+    </div>
+
+  </div>
+
+  <div>
+
+    <h4>Currently Viewing {{ header }}</h4>
+  </div>
+
+  <table class="table table-hover">
+    <thead>
+      <tr>
+          <th>Number</th>
+          <th>Record ID</th>
+          <th>Record Type</th>
+          <th>Campaign ID</th>
+          <th>Campaign</th>
+          <th>Budget</th>
+          <th>Portfolio ID</th>
+          <th>Campaign Start Date</th>
+          <th>Campaign End Date</th>
+          <th>Budget Type</th>
+          <th>Ad Group</th>
+          <th>Max Bid</th>
+          <th>Keyword</th>
+          <th>Match Type</th>
+          <th>Spending Policy</th>
+          <th>Campaign Status</th>
+          <th>Ad Group Status</th>
+          <th>Status</th>
+          <th>Impressions</th>
+          <th>clicks</th>
+          <th>Spend</th>
+          <th>Orders</th>
+          <th>Total Units</th>
+          <th>Sales</th>
+          <th>ACoS</th>
+          <th>Placement Type</th>
+          <th>Bid Multiplier</th>
+      </tr>
+    </thead>
+
+    <tbody>
+
+      {% for item in items %}
+
+      <tr>
+        <td>{{ item.pk }}
+        <td>{{ item.Record_ID }}</td>
+        <td>{{ item.Record_Type }} $</td>
+        <td>{{ item.Campaign_ID }}</td>
+        <td>{{ item.Campaign }}</td>
+        <td>{{ item.Budget }}</td>
+        <td>{{ item.Portofolio_ID }}</td>
+        <td>{{ item.Campaign_Start_Date }}</td>
+
+        {% if header|lower == "HSC" %}
+        <td>
+            <a href="{% url 'edit_HSC' item.pk %}" class="btn btn-warning btn-sm" role="button" aria-pressed="true" > Edit</a>
+            <a href="{% url 'delete_HSC' item.pk%}" class="btn btn-danger btn-sm" role="button" aria-pressed="true" > x</a>
+        </td>
+        {% elif header|lower == "PPC" %}
+        <td>
+            <a href="{% url 'edit_PPC' item.pk %}" class="btn btn-warning btn-sm" role="button" aria-pressed="true" > Edit</a>
+            <a href="{% url 'delete_PPC' item.pk%}" class="btn btn-danger btn-sm" role="button" aria-pressed="true" > x</a>
+        </td>
+        {% else %}
+        <td>
+            <a href="{% url 'edit_Bidopt' item.pk %}" class="btn btn-warning btn-sm" role="button" aria-pressed="true" > Edit</a>
+            <a href="{% url 'delete_Bidopt' item.pk%}" class="btn btn-danger btn-sm" role="button" aria-pressed="true" > x</a>
+        </td>
+        {% endif %}
+
+
+      </tr>
+
+      {% endfor %}
+    </tbody>
+  </table>
+
+{% endblock %}
